@@ -16,15 +16,6 @@ services:
     dns:
       - '127.0.0.1'
       - '1.1.1.1'
+    entrypoint: ['/bin/bash', '-c', 'echo "127.0.0.1 $HOSTNAME" >> /etc/hosts; echo "bind-interfaces" >> /etc/dnsmasq.conf; /s6-init']
     network_mode: host
 
-  # set pihole DNS1 and DNS2 service variables to 127.0.0.1#5053 to use dnscrypt-proxy for upstream DNS
-  dnscrypt-proxy:
-    image: klutchell/dnscrypt-proxy:arm32v7-2.0.27
-    ports:
-      - '5053:5053/udp'
-    dns:
-      - '127.0.0.1'
-      - '1.1.1.1'
-    healthcheck:
-      disable: true
